@@ -1,96 +1,110 @@
+/* Footer full width and layout */
 .footer {
+    width: 100vw;             /* full viewport width */
+    position: relative;
+    left: 0;                  /* align to left edge */
     background-color: var(--bg-primary);
     color: var(--text-primary);
     padding: 2rem 0;
     box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
-    margin:2rem 0 0 0;
-  }
-  
-  .footer-container {
+    margin: 2rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer content container */
+.footer-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-  
-  .footer-section {
+    width: 100%;             /* take full footer width */
+    max-width: 1200px;       /* limits content width */
+    margin: 0 auto;          /* center container */
+    padding: 0 2rem;
+    flex-wrap: wrap;         /* wrap sections on smaller screens */
+}
+
+/* Footer sections */
+.footer-section {
     flex: 1;
     min-width: 250px;
-  }
-  
-  .footer-section h3 {
+}
+
+.footer-section h3 {
     font-size: 1.4rem;
     margin-bottom: 1rem;
     color: var(--text-primary);
     font-weight: 600;
+}
 
-  }
-  
-  .footer-section p {
+.footer-section p {
     font-size: 1rem;
     color: var(--text-secondary);
     line-height: 1.5;
     margin-bottom: 0.8rem;
-  }
-  
-  .social {
+}
+
+/* Social section */
+.social {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-  }
-  
-  .social-links {
+}
+
+.social-links {
     display: flex;
     gap: 1rem;
-  }
-  
-  .social-icon {
+}
+
+/* Social icons (restored previous colors) */
+.social-icon {
     font-size: 2rem;
-    color: var(--text-light);
+    color: var(--text-light);  /* default icon color */
     transition: transform 0.3s ease, color 0.3s ease;
-  }
-  
-  .social-icon:hover {
-    color: var(--primary-main);
+}
+
+.social-icon:hover {
+    color: var(--primary-main); /* hover color */
     transform: scale(1.1);
-  }
-  
-  .footer-bottom {
+}
+
+/* Footer bottom */
+.footer-bottom {
+    width: 100vw;                   /* full viewport width */
     text-align: center;
     margin-top: 2rem;
     font-size: 1rem;
     color: var(--text-secondary);
-    padding-top: 1.5rem;
+    padding: 1.5rem 0;
     border-top: 1px solid var(--border-color);
-  }
-  
-  .footer-bottom p {
+    background-color: var(--bg-primary); /* ensure full-width background */
+}
+
+.footer-bottom p {
     margin: 0;
     font-weight: 400;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
     .footer-container {
-      flex-direction: column;
-      text-align: center;
-      padding: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 0 1rem;
     }
-  
+
     .footer-section {
-      margin-bottom: 2rem;
-      width: 100%;
+        margin-bottom: 2rem;
+        width: 100%;
     }
-  
+
     .social-links {
-      justify-content: center;
+        justify-content: center;
     }
-  
+
     .social-icon {
-      font-size: 1.8rem;
+        font-size: 1.8rem;
     }
-  }
-  
+}

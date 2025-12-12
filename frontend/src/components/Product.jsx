@@ -12,12 +12,12 @@ function Product({product}) {
     console.log('New rating:', newRating);
   }
   return (
-    <Link to={product._id} className='product_id'>
+    <Link to={`/product/${product._id}`} className='product_id'>
     <div className="product-card">
-      <img src={product.image[0].url} alt={product.name} />
+      <img src={product.image[0].url} alt={product.name} className='product-image-card' />
       <div className="produt-details">
         <h3 className='product-title'>{product.name}</h3>
-        <p className="product-price"><strong>Price</strong>{product.price}/-</p>
+        <p className="home-price"><strong>Price</strong>{product.price}/-</p>
         <div className="rating_container">
           <Rating
           value={product.rating}
@@ -25,7 +25,10 @@ function Product({product}) {
           disabled={true}
           />
         </div>
-        <button className='add-to-cart'>Add To Cart</button>
+        <span className="productCardSpan">
+          ({product.numOfReviews} {product.numOfReviews===1?"Review":"Reviews"})
+        </span>
+        <button className='add-to-cart'>View Details</button>
       </div>
     </div>
     </Link>
