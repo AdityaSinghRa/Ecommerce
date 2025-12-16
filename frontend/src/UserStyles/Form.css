@@ -1,169 +1,121 @@
-   */
-  .container {
-    width: 100%;
-    max-width: 600px; 
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
+/* ===== Page Centering ===== */
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+}
 
-  
-  .active-tab {
-    color:  var(--primary-main);
-    font-weight: bold;
-    border-bottom: 3px solid  var(--primary-main);
-  }
-  
+/* ===== Card ===== */
+.form-content {
+  width: 100%;
+  max-width: 420px;
+}
 
-  .form-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 300px;
-    width: 400px;
-    background-color:rgb(246, 243, 243);
-    padding: 20px;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  }
-  
-  
+.form {
+  background: #fff;
+  padding: 30px 28px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+/* ===== Heading ===== */
+.form h2 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* ===== Avatar Section ===== */
+.avatar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #764ba2;
+  margin-bottom: 10px;
+}
+
+/* Hide default file input */
+.file-input {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== Input Fields ===== */
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.15);
+}
+
+/* ===== Button ===== */
+.authBtn {
+  width: 100%;
+  padding: 12px;
+  background: #764ba2;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.authBtn:hover {
+  background: #5b3d91;
+}
+
+/* ===== Links ===== */
+.form-links {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.form-links a {
+  color: #764ba2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
   .form {
-    width: 100%;
-  }
-  
-  .form h2 {
-    text-align: center;
-    color: var(--primary-main);
-    margin-bottom: 20px;
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+    padding: 24px 18px;
   }
 
-  .input-group input {
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px; 
-  }
-  
-  .avatar-group {
-    display: flex;                 
-    align-items: center;           
-    gap: 10px;                     
-  }
-  
-  .file-input {
-    padding: 8px;                   
-    border-radius: 5px;            
-    border: 1px solid #ccc;        
-    font-size: 14px;                
-    width: 80%;                   
-  }
-  
   .avatar {
-    width: 50px;                    
-    height: 50px;                 
-    object-fit: cover;              
-    border-radius: 50%;             
+    width: 95px;
+    height: 95px;
   }
-  .authBtn {
-    width: 100%;
-    background: var(--primary-main);
-    color: var(--text-primary);
-    border: none;
-    padding: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-  }
-  
-  button:hover {
-    background:var(--primary-dark);
-    color:var(--text-primary);
-  }
- .form-links{
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    margin-top:10px;
-  }
-  
-  .form-links a {
-    color:var(--border-color);
-    margin-left: 10px;
-    
-  }
-  
-  .form-links a:hover {
-    text-decoration: underline;
-  }
-  
-  .pointer {
-    cursor: pointer;
-    color: var(--primary-main)
-  }
-  
-  .form-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; 
-    min-height: 100vh;
-    width: 100%;
-  }
-  .update-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh; 
-    width: 100%;
-    margin-top:70px;
-  }
-  .forgot-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh; 
-    width: 100%;
-    margin-top:30px;
-  }
-  .email-group{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 15px;
-    }
-  
-    button {
-      font-size: 14px;
-      padding: 10px;
-    }
-  
-    .input-group input {
-      padding: 12px;
-      font-size: 14px;
-    }
-  
-    .tab {
-      font-size: 14px;
-    }
-    .update-container{
-      margin-top:60px;
-    }
-  }
-  
-
-  
+}

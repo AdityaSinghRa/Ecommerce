@@ -36,7 +36,7 @@ function Home() {
       <h2 className="home-heading">Trending Now</h2>
       <div className="home-product-container">
         {products.map((product,index) =>(
-           <Product product={product} key={index}/>
+           <Product product={product} key={product._id}/>
         ))
          }
       </div>

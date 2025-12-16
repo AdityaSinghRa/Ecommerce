@@ -2,8 +2,15 @@ import app from "./app.js";
 import dotenv from 'dotenv';
 import { connectMongoDatabase } from "./config/db.js";
 dotenv.config({path:'backend/config/config.env'});
+import {v2 as cloudinary} from 'cloudinary';
 
 connectMongoDatabase();
+
+cloudinary.config({
+  cloud_name:process.env.CLOUDINARY_NAME,
+  api_key:process.env.API_KEY,
+  api_secret:process.env.API_SECRET
+})
 
 //Handle uncaught exception errors
 process.on('uncaughtException',(err)=>{

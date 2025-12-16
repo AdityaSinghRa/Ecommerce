@@ -2,21 +2,31 @@ import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-export const getProduct=createAsyncThunk('product/getProduct',async({keyword},{rejectWithValue})=>{
+export const getProduct=createAsyncThunk('product/getProduct',async({keyword,page=1,category}={},{rejectWithValue})=>{
   try{
 
-    const link=keyword?`/api/v1/products?keyword=${encodeURIComponent(keyword)}`:'/api/v1/products';
+    let link='/api/v1/products?page='+page;
+    if(category){
+      link+=`&category=${category}`;
+    }
+    if(keyword){
+      link += `&keyword=${encodeURIComponent(keyword)}`;
+    }
+    // const link=keyword?`/api/v1/products?keyword=${encodeURIComponent(keyword)}&page=${page}`:`/api/v1/products?page=${page}`;
 
     const {data}=await axios.get(link);
     console.log('Response',data);
     return data;
   }catch(error){
-      // If the backend sent a message
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue('Something went wrong');
+       if (error.response?.status === 404) {
+        return rejectWithValue({ silent: true });
       }
+
+      return rejectWithValue({
+        message:
+          error.response?.data?.message || "Something went wrong",
+        silent: false,
+      });
   }
 });
 
@@ -43,7 +53,9 @@ const productSlice=createSlice({
     productCount:0,
     loading:false,
     error:null,
-    product:null
+    product:null,
+    resultPerPage:1,
+    totalpages:0,
   },
   reducers:{
     removeErrors:(state)=>{
@@ -60,9 +72,12 @@ const productSlice=createSlice({
        state.error=null;
       state.products=action.payload.products;
       state.productCount=action.payload.productCount;
+      state.resultPerPage=action.payload.resultPerPage;
+      state.totalpages=action.payload.totalpages;
     }).addCase(getProduct.rejected,(state,action)=>{
       state.loading=false;
        state.error=action.payload||'Something went wrong';
+       state.products=[];
     });
 
     builder.addCase(getProductDetails.pending,(state)=>{
