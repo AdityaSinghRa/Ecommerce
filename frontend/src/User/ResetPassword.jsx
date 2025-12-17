@@ -4,27 +4,29 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageTitle from '../components/PageTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { removeErrors, removeSuccess, updatePassword } from '../features/user/userSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { removeErrors, removeSuccess, resetPassword, updatePassword } from '../features/user/userSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 
-function UpdatePassword() {
-  const {success,loading,error}=useSelector(state=>state.user);
+function ResetPassword() {
+   const {success,loading,error}=useSelector(state=>state.user);
   const dispatch=useDispatch();
   const navigate=useNavigate();
 
-  const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const updatePasswordSubmit=(e)=>{
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+     const {token}=useParams();
+
+  const resetPasswordSubmit=(e)=>{
     e.preventDefault();
-    const myForm = new FormData();
-        myForm.append("oldPassword",oldPassword);
-        myForm.append("newPassword",newPassword);
-        myForm.append("confirmPassword",confirmPassword);
-        dispatch(updatePassword(myForm));
+    const data={
+      password,
+      confirmPassword,
+    }
+    console.log(data)
+    dispatch(resetPassword({token:token,userData:data}))
   }
 
    useEffect(()=>{
@@ -36,40 +38,30 @@ function UpdatePassword() {
     
      useEffect(()=>{
               if(success){
-                toast.success('Password Changed Successfully',{position:'top-center',autoClose:3000});
+                toast.success('Password Reset Successfully',{position:'top-center',autoClose:3000});
                 dispatch(removeSuccess());
-                navigate('/profile')
+                navigate('/login')
               }
-            },[dispatch,success]);      
+            },[dispatch,success]);
   return (
-    <>
+     <>
    {loading?(<Loader/>):( <>
     <Navbar/>
-    <PageTitle title='Password Update'/>
+    <PageTitle title='Reset Password'/>
    <div className="form-container update-container">
      <div className="form-content">
           <form
             className="form"
-            onSubmit={updatePasswordSubmit}
+            onSubmit={resetPasswordSubmit}
           >
-            <h2>Update Password</h2>
-
+            <h2>Forgot Password</h2>
             <div className="input-group">
               <input
                 type="password"
-                name="oldPassword"
-                placeholder='Old Password'
-                value={oldPassword} 
-                onChange={(e)=>setOldPassword(e.target.value)}
-              />
-            </div>
-            <div className="input-group">
-              <input
-                type="password"
-                name="newPassword"
+                name="password"
                 placeholder='New Password'
-                value={newPassword}
-                onChange={(e)=>setNewPassword(e.target.value)}
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
               />
             </div>
             <div className="input-group">
@@ -91,4 +83,4 @@ function UpdatePassword() {
   )
 }
 
-export default UpdatePassword
+export default ResetPassword

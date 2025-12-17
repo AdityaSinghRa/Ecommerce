@@ -95,7 +95,7 @@ export const requestPasswordReset = handleAsyncError(async (req, res, next) => {
       new HandleError("Could not save reset token please try again later", 500)
     );
   }
-  const resetPasswordURL = `http://localhost/api/v1/reset/${resetToken}`;
+  const resetPasswordURL = `${req.protocol}://${req.get('host')}/reset/${resetToken}`;
   const message = `Use the following link to reset your password: ${resetPasswordURL}. \n\n This link will expire in 30 minutes. \n\n If you didn't request a password reset,please ignore this message`;
   try {
     //Send Email
@@ -165,7 +165,7 @@ export const updatePassword = handleAsyncError(async (req, res, next) => {
     return next(new HandleError("Old Password is incorrect", 400));
   }
   if (newPassword !== confirmPassword) {
-    return next(new HandleError("Password doesn't match", 400));
+    return next(new HandleError("New Password doesn't match", 400));
   }
   user.password = newPassword;
   await user.save();

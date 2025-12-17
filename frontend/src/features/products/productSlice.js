@@ -15,7 +15,6 @@ export const getProduct=createAsyncThunk('product/getProduct',async({keyword,pag
     // const link=keyword?`/api/v1/products?keyword=${encodeURIComponent(keyword)}&page=${page}`:`/api/v1/products?page=${page}`;
 
     const {data}=await axios.get(link);
-    console.log('Response',data);
     return data;
   }catch(error){
        if (error.response?.status === 404) {
@@ -67,7 +66,6 @@ const productSlice=createSlice({
       state.loading=true;
       state.error=null;
     }).addCase(getProduct.fulfilled,(state,action)=>{
-      console.log('Fulfilled Action Payload',action.payload);
       state.loading=false;
        state.error=null;
       state.products=action.payload.products;
@@ -84,7 +82,6 @@ const productSlice=createSlice({
        state.loading=true;
       state.error=null;
     }).addCase(getProductDetails.fulfilled,(state,action)=>{
-       console.log('Fulfilled Action Payload',action.payload);
       state.loading=false;
        state.error=null;
       state.product=action.payload.product;
