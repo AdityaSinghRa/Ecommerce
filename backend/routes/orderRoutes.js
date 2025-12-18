@@ -7,6 +7,8 @@ const router=express.Router();
 
 //Routes
 router.route('/new/order').post(verifyUserAuth,createNewOrder);
+
+router.route('/order/:id').get(verifyUserAuth,getSingleOrder)
 router.route('/admin/orders/:id').get(verifyUserAuth,roleBasedAccess('admin'),getSingleOrder).put(verifyUserAuth,roleBasedAccess('admin'),updateOrderStatus)
 .delete(verifyUserAuth,roleBasedAccess('admin'),deleteOrder);
 router.route('/orders/user').get(verifyUserAuth,allMyOrders);
