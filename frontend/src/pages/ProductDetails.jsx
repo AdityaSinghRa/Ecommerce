@@ -8,20 +8,26 @@ import Laoder from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
+  createReview,
   getProductDetails,
   removeErrors,
+  removeSuccess,
 } from "../features/products/productSlice";
 import { toast } from "react-toastify";
 import { addItemsToCart, removeMessage } from "../features/cart/cartSlice";
 
 function ProductDetails() {
   const [userRating, setUserRating] = useState(0);
+  const [comment, setComment] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState("");
   const handleRatingChange = (newRating) => {
     setUserRating(newRating);
   };
 
-  const { loading, error, product } = useSelector((state) => state.product);
+  const { loading, error, product, reviewSuccess, reviewLoading } = useSelector(
+    (state) => state.product
+  );
 
   const {
     loading: cartLoading,
@@ -31,7 +37,6 @@ function ProductDetails() {
     cartItems,
   } = useSelector((state) => state.cart);
 
- 
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
@@ -52,26 +57,14 @@ function ProductDetails() {
     if (cartError) {
       toast.error(error, { position: "top-center", autoClose: 3000 });
     }
-  }, [dispatch, error,cartError]);
-
+  }, [dispatch, error, cartError]);
 
   useEffect(() => {
     if (success) {
       toast.success(message, { position: "top-center", autoClose: 3000 });
       dispatch(removeMessage());
     }
-  }, [dispatch,success,message]);
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <PageTitle title={`${product?.name}-Details`} />
-        <Laoder />
-        <Footer />
-      </>
-    );
-  }
+  }, [dispatch, success, message]);
 
   const decreaseQuantity = () => {
     if (quantity <= 1) {
@@ -100,6 +93,56 @@ function ProductDetails() {
     dispatch(addItemsToCart({ id, quantity }));
   };
 
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (!userRating) {
+      toast.error("Please Select a rating", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
+    dispatch(
+      createReview({
+        rating: userRating,
+        comment,
+        productId: id,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (reviewSuccess) {
+      toast.success("Review Submitted Successfully", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      setUserRating(0);
+      setComment("");
+      dispatch(removeSuccess());
+      dispatch(getProductDetails(id));
+    }
+  }, [reviewSuccess, id, dispatch]);
+
+
+  useEffect(()=>{
+    if(product && product.image && product.image.length>0){
+      setSelectedImage(product.image[0].url)
+    }
+  },[product])
+
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <PageTitle title={`${product?.name}-Details`} />
+        <Laoder />
+        <Footer />
+      </>
+    );
+  }
+
   if (error || !product) {
     return (
       <>
@@ -118,10 +161,22 @@ function ProductDetails() {
         <div className="product-detail-container">
           <div className="product-image-container">
             <img
-              src={product.image[0].url.replace("./", "/")}
+              src={selectedImage}
               alt="Product title"
               className="product-detail-image"
             />
+            {product.image.length > 1 && (
+              <div className="product-thumbnails">
+                {product.image.map((img, ind) => (
+                  <img
+                    src={img.url}
+                    alt={`ThumbNail ${ind + 1}`}
+                    className="thumbnail-image" 
+                    onClick={()=>setSelectedImage(img.url)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="product-info">
@@ -175,7 +230,7 @@ function ProductDetails() {
                 </button>
               </>
             )}
-            <form className="review-form">
+            <form className="review-form" onSubmit={handleReviewSubmit}>
               <h3>Write a Review</h3>
               <Rating
                 value={0}
@@ -185,8 +240,13 @@ function ProductDetails() {
               <textarea
                 placeholder="Write your review here"
                 className="review-input"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
               ></textarea>
-              <button className="submit-review-btn">Submit</button>
+              <button className="submit-review-btn" disabled={reviewLoading}>
+                Submit
+              </button>
             </form>
           </div>
         </div>

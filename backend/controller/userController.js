@@ -256,7 +256,7 @@ export const getSingleUser = handleAsyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(
-      new HandleError(`User doesn't exist with this id:${req.params.id}`, 400)
+      new HandleError(`User doesn't exist with this id:${req.params.id}`, 404)
     );
   }
   res.status(200).json({
