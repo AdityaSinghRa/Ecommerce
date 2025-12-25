@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import '../pageStyles/Home.css'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar';
-import ImageSlider from '../components/imageSlider';
+import ImageSlider from '../components/ImageSlider';
 import Product from '../components/Product';
 import PageTitle from '../components/PageTitle';
 import { useDispatch, useSelector } from 'react-redux';
