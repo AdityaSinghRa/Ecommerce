@@ -19,10 +19,10 @@ function Footer() {
         <div className='footer-section social'>
           <h3>Follow Me</h3>
           <div className='social-links'>
-            <a href="#" target="_blank"><GitHub className='social-icon' /></a>
-            <a href="#" target="_blank"><LinkedIn className='social-icon' /></a>
-            <a href="#" target="_blank"><YouTube className='social-icon' /></a>
-            <a href="#" target="_blank"><Instagram className='social-icon' /></a>
+            <a href="https://www.github.com/AdityaSinghRa" target="_blank"><GitHub className='social-icon' /></a>
+            <a href="https://www.linkedin.com/in/aditya-singh-6a5b30288/" target="_blank"><LinkedIn className='social-icon' /></a>
+            <a href="https://www.youtube.com" target="_blank"><YouTube className='social-icon' /></a>
+            <a href="https://www.instagram.com" target="_blank"><Instagram className='social-icon' /></a>
           </div>
         </div>
 

@@ -15,7 +15,7 @@ router.route('/admin/product/:id').put(verifyUserAuth,roleBasedAccess('admin'),u
 
 router.route('/product/:id').get(getSingleProduct);
 router.route('/review').put(verifyUserAuth,createAndUpdateReview);
-router.route('/reviews').get(getProductReviews)
+router.route('/admin/reviews').get(getProductReviews)
 .delete(verifyUserAuth,roleBasedAccess('admin'),deleteReview);
 
 

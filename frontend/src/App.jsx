@@ -27,15 +27,18 @@ import CreateProduct from "./Admin/CreateProduct";
 import UpdateProduct from "./Admin/UpdateProduct";
 import UserList from "./Admin/UserList";
 import UpdateRole from "./Admin/UpdateRole";
+import OrdersList from "./Admin/OrdersList";
+import UpdateOrder from "./Admin/UpdateOrder";
+import ReviewsList from "./Admin/ReviewsList";
 
 function App() {
-  const {isAuthenticated,user}=useSelector(state=>state.user);
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    if(isAuthenticated){
-       dispatch(loadUser())
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(loadUser());
     }
-  },[dispatch,isAuthenticated])
+  }, [dispatch, isAuthenticated]);
   return (
     <Router>
       <Routes>
@@ -43,37 +46,107 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
-         <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />}/>
-          <Route path="/profile/update" element={<ProtectedRoute element={<UpdateProfile />} />}/>
-           <Route path="/password/update" element={<ProtectedRoute element={<UpdatePassword />} />}/>
-            <Route path="/password/forgot" element={<ForgotPassword />} />
-              <Route path="/reset/:token" element={<ResetPassword />} />
-             <Route path="/cart" element={<Cart/>} />
-              <Route path="/shipping" element={<ProtectedRoute element={<Shipping />} />}/> 
-              <Route path="/order/confirm" element={<ProtectedRoute element={<OrderConfirm />} />}/> 
-               <Route path="/process/payment" element={<ProtectedRoute element={<Payment />} />}/>  
-                <Route path="/paymentSuccess" element={<ProtectedRoute element={<PaymentSuccess />} />}/> 
-                <Route path="/orders/user" element={<ProtectedRoute element={<MyOrders />} />}/>  
-                  <Route path="/order/:orderId" element={<ProtectedRoute element={<OrderDetails />} />}/>  
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<Profile />} />}
+        />
+        <Route
+          path="/profile/update"
+          element={<ProtectedRoute element={<UpdateProfile />} />}
+        />
+        <Route
+          path="/password/update"
+          element={<ProtectedRoute element={<UpdatePassword />} />}
+        />
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/reset/:token" element={<ResetPassword />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/shipping"
+          element={<ProtectedRoute element={<Shipping />} />}
+        />
+        <Route
+          path="/order/confirm"
+          element={<ProtectedRoute element={<OrderConfirm />} />}
+        />
+        <Route
+          path="/process/payment"
+          element={<ProtectedRoute element={<Payment />} />}
+        />
+        <Route
+          path="/paymentSuccess"
+          element={<ProtectedRoute element={<PaymentSuccess />} />}
+        />
+        <Route
+          path="/orders/user"
+          element={<ProtectedRoute element={<MyOrders />} />}
+        />
+        <Route
+          path="/order/:orderId"
+          element={<ProtectedRoute element={<OrderDetails />} />}
+        />
 
-                  {/** AdminRoutes */}
-                   <Route path="/admin/dashboard" element={<ProtectedRoute element={<Dashboard />} adminOnly={true} />}/>   
+        {/** AdminRoutes */}
+        <Route
+          path="/admin/dashboard"
+          element={<ProtectedRoute element={<Dashboard />} adminOnly={true} />}
+        />
 
-                    <Route path="/admin/products" element={<ProtectedRoute element={<ProductList />} adminOnly={true} />}/>  
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute element={<ProductList />} adminOnly={true} />
+          }
+        />
 
-                     <Route path="/admin/product/create" element={<ProtectedRoute element={<CreateProduct />} adminOnly={true} />}/>   
+        <Route
+          path="/admin/product/create"
+          element={
+            <ProtectedRoute element={<CreateProduct />} adminOnly={true} />
+          }
+        />
 
-                      <Route path="/admin/product/:updateId" element={<ProtectedRoute element={<UpdateProduct />} adminOnly={true} />}/> 
+        <Route
+          path="/admin/product/:updateId"
+          element={
+            <ProtectedRoute element={<UpdateProduct />} adminOnly={true} />
+          }
+        />
 
-                      <Route path="/admin/users" element={<ProtectedRoute element={<UserList />} adminOnly={true} />}/>  
+        <Route
+          path="/admin/users"
+          element={<ProtectedRoute element={<UserList />} adminOnly={true} />}
+        />
 
-                      <Route path="/admin/user/:id" element={<ProtectedRoute element={<UpdateRole />} adminOnly={true} />}/> 
+        <Route
+          path="/admin/user/:id"
+          element={<ProtectedRoute element={<UpdateRole />} adminOnly={true} />}
+        />
+
+        <Route
+          path="/admin/orders"
+          element={<ProtectedRoute element={<OrdersList />} adminOnly={true} />}
+        />
+
+        <Route
+          path="/admin/order/:id"
+          element={
+            <ProtectedRoute element={<UpdateOrder />} adminOnly={true} />
+          }
+        />
+
+        <Route
+          path="/admin/reviews"
+          element={
+            <ProtectedRoute element={<ReviewsList />} adminOnly={true} />
+          }
+        />
       </Routes>
-      {isAuthenticated && <UserDashboard user={user}/>}
+      {isAuthenticated && <UserDashboard user={user} />}
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
